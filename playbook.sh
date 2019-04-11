@@ -1,6 +1,15 @@
 ## Deployments ##
-#TODO BlueGreen
-#TODO Canary
+# Base deployment
+oc create -f web-app-base.yaml
+
+# Show rolling & recreate
+
+# Blue Green/Canary
+oc set route-backends web-app web-app=100 web-app-2=0
+
+while true; do curl http://web-app-myproject.127.0.0.1.nip.io && sleep 1; echo '\n'; done
+
+oc set route-backends web-app web-app=70 web-app-2=30
 
 ## Operator ##
 oc new-project operator

@@ -1,0 +1,25 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  creationTimestamp: null
+  labels:
+    app: web-app
+  name: web-app
+  selfLink: /apis/route.openshift.io/v1/namespaces/myproject/routes/web-app
+spec:
+  alternateBackends:
+  - kind: Service
+    name: web-app-2
+    weight: 0
+  host: web-app-myproject.127.0.0.1.nip.io
+  port:
+    targetPort: 3000-tcp
+  to:
+    kind: Service
+    name: web-app
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: null

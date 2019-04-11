@@ -1,0 +1,205 @@
+apiVersion: v1
+items:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-04-11T05:08:37Z
+    generation: 4
+    labels:
+      app: web-app
+    name: web-app
+    namespace: myproject
+    resourceVersion: "13643"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/myproject/deploymentconfigs/web-app
+    uid: dd5c96ae-5c17-11e9-a0d7-e86a64c059f9
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: web-app
+      deploymentconfig: web-app
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: web-app
+          deploymentconfig: web-app
+      spec:
+        containers:
+        - env:
+          - name: VERSION
+            value: version-1
+          image: retocode/web-app:v1
+          imagePullPolicy: IfNotPresent
+          name: web-app
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-04-11T05:10:57Z
+    generation: 4
+    labels:
+      app: web-app-2
+    name: web-app-2
+    namespace: myproject
+    resourceVersion: "13753"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/myproject/deploymentconfigs/web-app-2
+    uid: 30462f66-5c18-11e9-a0d7-e86a64c059f9
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: web-app-2
+      deploymentconfig: web-app-2
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: web-app-2
+          deploymentconfig: web-app-2
+      spec:
+        containers:
+        - env:
+          - name: VERSION
+            value: much-better-version
+          image: retocode/web-app:v1
+          imagePullPolicy: IfNotPresent
+          name: web-app-2
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-04-11T05:08:37Z
+    labels:
+      app: web-app
+    name: web-app
+    namespace: myproject
+    resourceVersion: "11763"
+    selfLink: /api/v1/namespaces/myproject/services/web-app
+    uid: dd5de9ac-5c17-11e9-aac9-e86a64c059f9
+  spec:
+    clusterIP: 172.30.247.14
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: web-app
+      deploymentconfig: web-app
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2019-04-11T05:10:57Z
+    labels:
+      app: web-app-2
+    name: web-app-2
+    namespace: myproject
+    resourceVersion: "12499"
+    selfLink: /api/v1/namespaces/myproject/services/web-app-2
+    uid: 3046ef68-5c18-11e9-aac9-e86a64c059f9
+  spec:
+    clusterIP: 172.30.59.7
+    ports:
+    - name: 3000-tcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: web-app-2
+      deploymentconfig: web-app-2
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2019-04-11T05:09:04Z
+    labels:
+      app: web-app
+    name: web-app
+    namespace: myproject
+    resourceVersion: "11933"
+    selfLink: /apis/route.openshift.io/v1/namespaces/myproject/routes/web-app
+    uid: ed769d32-5c17-11e9-a0d7-e86a64c059f9
+  spec:
+    host: web-app-myproject.127.0.0.1.nip.io
+    port:
+      targetPort: 3000-tcp
+    to:
+      kind: Service
+      name: web-app
+      weight: 100
+    wildcardPolicy: None
+  status: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
