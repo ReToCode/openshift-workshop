@@ -11,6 +11,11 @@ while true; do curl http://web-app-myproject.127.0.0.1.nip.io && sleep 1; echo '
 
 oc set route-backends web-app web-app=70 web-app-2=30
 
+# Jobs
+oc create -f job-simple.yaml
+oc create -f job-cron.yaml
+# Then show console & pods
+
 ## Operator ##
 oc new-project operator
 oc project operator

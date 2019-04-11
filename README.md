@@ -5,3 +5,4 @@ This repository contains the necessary scripts to setup a local OpenShift 3.11 e
 * A/B and Canary ingress routing
 * Service Broker
 * Operators
+* Jobs

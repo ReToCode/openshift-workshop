@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: print-date
+spec:
+  parallelism: 1    
+  completions: 1    
+  template:         
+    metadata:
+      name: print-date
+    spec:
+      containers:
+      - name: date-pod
+        image: busybox
+        command: ["date"]
+      restartPolicy: OnFailure

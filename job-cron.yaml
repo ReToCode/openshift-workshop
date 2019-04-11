@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: print-date-cron
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 5
+  successfulJobsHistoryLimit: 5
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    metadata:
+      name: print-date-cron
+    spec:
+      template:
+        metadata:
+          name: date-cron-pod 
+        spec:
+          containers:
+          - name: date-pod-cron
+            image: busybox
+            command: ["date"]
+          restartPolicy: OnFailure
