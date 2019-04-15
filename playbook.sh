@@ -1,6 +1,7 @@
 ## Deployments ##
 # Base deployment
 oc create -f web-app-base.yaml
+oc expose service web-app
 
 # Show rolling & recreate
 
